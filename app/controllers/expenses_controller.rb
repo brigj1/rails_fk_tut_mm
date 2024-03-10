@@ -1,10 +1,18 @@
 class ExpensesController < ApplicationController
-  before_action :set_expense, only: %i[ show edit update destroy ]
+  #before_action :set_expense, only: %i[ show edit update destroy ]
 
-  # GET /expenses or /expenses.json
+  before_action :set_expense, only: [:show, :edit, :update, :destroy]
+
+  # GET /expenses
+  # GET /expenses.json
   def index
-    @expenses = Expense.all
-  end
+    if params[:category].blank?
+      @expenses = Expense.all.order("created_at DESC")
+    else 
+      @category_id = Category.find_by(name: params[:category]).id
+      @expenses = Expense.where(category_id: @category_id).order("created_at DESC")
+    end 
+  end 
 
   # GET /expenses/1 or /expenses/1.json
   def show
