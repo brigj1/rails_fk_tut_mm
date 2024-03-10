@@ -1,5 +1,6 @@
 class ExpensesController < ApplicationController
   #before_action :set_expense, only: %i[ show edit update destroy ]
+  # %i - Non-interpolated Array of symbols, separated by whitespace
 
   before_action :set_expense, only: [:show, :edit, :update, :destroy]
 
