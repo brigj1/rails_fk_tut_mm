@@ -30,6 +30,9 @@ class ExpensesController < ApplicationController
 
   # POST /expenses or /expenses.json
   def create
+    # Incoming :category_id values are converting to integers, should be strings
+    params[:category_id] = params[:category_id].to_s
+
     @expense = Expense.new(expense_params)
 
     respond_to do |format|
