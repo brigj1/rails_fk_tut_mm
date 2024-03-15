@@ -10,26 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_13_152057) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_15_033817) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.bigint "old_id", default: -> { "nextval('categories_id_seq'::regclass)" }, null: false
+    t.bigint "int_id", default: -> { "nextval('categories_id_seq'::regclass)" }, null: false
     t.text "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "expenses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.bigint "old_id", default: -> { "nextval('expenses_id_seq'::regclass)" }, null: false
+    t.bigint "int_id", default: -> { "nextval('expenses_id_seq'::regclass)" }, null: false
     t.text "title"
     t.decimal "amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "old_category_id"
-    t.uuid "category_uuid"
     t.uuid "category_id", null: false
     t.index ["category_id"], name: "index_expenses_on_category_id"
   end
